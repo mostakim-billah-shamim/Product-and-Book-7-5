@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+
+
+{% block body %}
+<h1>Welcome to our Ecommerce Site</h1>
+
+<div class="row row-cols-1 row-cols-md-3">
+    <h3>Available Products: {{pcount}}</h3>
+    <span></span>
+    {% for i in pdata %}
+    <div class="col"> 
+            
+        
+            
+        <div class="card h-100">
+
+            {% if i.image %}
+            <img src="{{i.image.url}}" class="card-img-top" alt="photo">
+            {% endif %}
+
+
+            <div class="card-body">
+                <h5 class="card-title">{{i.name}}</h5>
+                <h5 class="card-title">{{i.price}}</h5>
+                <p class="card-text">{{i.description}}</p>
+                <a class="btn btn-outline-success" href="{% url 'editproduct' i.id %}">Edit</a>
+                <a class="btn btn-outline-danger" href="{% url 'delproduct' i.id %}">Delete</a>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated {{i.time|timesince}} ago</small>
+            </div>
+        </div>
+
+    </div>
+
+    {% endfor %}
+</div>
+
+
+
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+    <h3>Available Books: {{bcount}}</h3>
+    {% for i in bdata %}          
+    <div class="col">
+        
+        
+            
+        <div class="card h-100">
+        
+            <div class="card-body">
+                <h5 class="card-title">{{i.name}}</h5>
+                <h5 class="card-title">{{i.author}}</h5>
+                <h5 class="card-title">{{i.price}}</h5>
+                <p class="card-text">{{i.category}}</p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">Last updated {{i.time|timesince}} ago</small>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+</div>
+{% endblock body %}
