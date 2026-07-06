@@ -9,9 +9,25 @@ from django.contrib import messages
 
 def DashboardPage(request):
     pdata=ProductModel.objects.all()
-    pcount=pdata.count()
-
     bdata=BookModel.objects.all()
+
+    psearch = request.GET.get('search')
+    bsearch= request.GET.get('search')
+
+    if psearch:
+        pdata=ProductModel.objects.filter(
+            Q(name__icontains = psearch)|
+            Q(description__icontains = psearch)
+        )
+    
+    if bsearch:
+        bdata=BookModel.objects.filter(
+            Q(name__icontains = bsearch)|
+            Q(author__icontains = bsearch)
+        )
+
+    
+    pcount=pdata.count()
     bcount=bdata.count()
 
     cont={
